@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">Pix</string>
+    <string name="search_hint" translatable="false">Search Flickr</string>
+</resources>
