@@ -78,6 +78,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)
@@ -85,6 +86,8 @@ dependencies {
     implementation(libs.androidx.navigation.dynamic.features.fragment)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.glide)
     implementation(libs.photoview)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

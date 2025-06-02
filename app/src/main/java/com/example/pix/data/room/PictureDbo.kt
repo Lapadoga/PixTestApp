@@ -8,5 +8,6 @@ data class PictureDbo(
     @PrimaryKey
     val id: String,
     val title: String,
-    val url: String,
+    val lowQualityUrl: String,
+    val highQualityUrl: String
 )

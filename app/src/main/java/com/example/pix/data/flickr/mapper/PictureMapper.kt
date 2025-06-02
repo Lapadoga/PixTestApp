@@ -8,17 +8,20 @@ import com.example.pix.domain.entity.Picture
 fun PhotoDto.toEntity(quality: String): Picture = Picture(
     id = id,
     title = title,
-    url = "https://live.staticflickr.com/${server}/${id}_${secret}_${quality}.jpg",
+    lowQualityUrl = "https://live.staticflickr.com/${server}/${id}_${secret}_${quality}.jpg",
+    highQualityUrl = "https://live.staticflickr.com/${server}/${id}_${secret}_b.jpg"
 )
 
 fun Picture.toDboEntity(): PictureDbo = PictureDbo(
     id = id,
     title = title,
-    url = url,
+    lowQualityUrl = lowQualityUrl,
+    highQualityUrl = highQualityUrl
 )
 
 fun PictureDbo.toEntity(): Picture = Picture(
     id = id,
     title = title,
-    url = url,
+    lowQualityUrl = lowQualityUrl,
+    highQualityUrl = highQualityUrl
 )

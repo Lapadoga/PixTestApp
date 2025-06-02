@@ -3,18 +3,19 @@ package com.example.pix.data.flickr
 import android.util.Log
 import com.example.pix.data.flickr.mapper.toDboEntity
 import com.example.pix.data.flickr.mapper.toEntity
-import com.example.pix.data.room.PictureDatabase
+import com.example.pix.data.room.PictureDao
 import com.example.pix.data.room.PictureDbo
 import com.example.pix.domain.entity.Picture
 import com.example.pix.domain.repositoryInterface.FlickrRepositoryInterface
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class FlickrRepository(database: PictureDatabase) : FlickrRepositoryInterface {
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-    private val retrofit = FlickrRetrofit
-    private val pictureDao = database.getPictureDao()
+class FlickrRepository @Inject constructor(
+    private val pictureDao: PictureDao,
+    private val retrofit: FlickrApi,
+    private val dispatcher: CoroutineContext
+) : FlickrRepositoryInterface {
 
     override suspend fun search(
         text: String,
@@ -23,7 +24,7 @@ class FlickrRepository(database: PictureDatabase) : FlickrRepositoryInterface {
     ): List<Picture>? {
         val searchResult = try {
             withContext(dispatcher) {
-                retrofit.api.value.search(text, page, count)
+                retrofit.search(text, page, count)
             }
         } catch (e: Exception) {
             val message = e.message ?: ""
@@ -51,7 +52,7 @@ class FlickrRepository(database: PictureDatabase) : FlickrRepositoryInterface {
     override suspend fun recentPictures(): List<Picture>? {
         val recentResult = try {
             withContext(dispatcher) {
-                retrofit.api.value.getRecent()
+                retrofit.getRecent()
             }
         } catch (e: Exception) {
             val message = e.message ?: ""
